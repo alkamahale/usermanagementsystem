@@ -7,14 +7,14 @@ import { of } from 'rxjs';
 class MockActivatedRoute {
   snapshot = {
     paramMap: {
-      get: (key: string) => '1', // mock userId
+      get: (key: string) => '1',
     },
   };
 }
 
 class MockUserService {
   getUserById(id: number) {
-    return of({ data: { id, name: 'Test User' } }); // mock user data
+    return of({ data: { id, name: 'Test User' } });
   }
 }
 
