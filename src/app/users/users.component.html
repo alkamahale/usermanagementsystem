@@ -1,0 +1,59 @@
+<div style="margin-left: 23px;margin-top: 12px;display: flex;">
+    <h4>User Management System</h4>
+    <button mat-raised-button color="primary" style="margin-left: auto;" (click)="onAddUser()">
+        <mat-icon>add</mat-icon> Add User</button>
+</div>
+<div *ngIf="loading" style="text-align: center; margin-top: 30px;">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!loading">
+    <mat-card>
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!-- Avatar Column -->
+            <ng-container matColumnDef="avatar">
+                <mat-header-cell *matHeaderCellDef> Avatar </mat-header-cell>
+                <mat-cell *matCellDef="let user">
+                    <img [src]="user.avatar" width="50" height="50" style="border-radius: 50%;" />
+                </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.first_name}} {{user.last_name}} </mat-cell>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="view">
+                <mat-header-cell *matHeaderCellDef> View </mat-header-cell>
+                <mat-cell *matCellDef="let user"> <button class="icon-button"
+                        (click)="onView(user)"><mat-icon>visibility</mat-icon></button></mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+                <mat-cell *matCellDef="let user"> <button class="icon-button"
+                        (click)="editUser(user)"><mat-icon>edit</mat-icon></button></mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+                <mat-header-cell *matHeaderCellDef> delete </mat-header-cell>
+                <mat-cell *matCellDef="let user"><mat-icon
+                        (click)="deleteUser(user.id)">delete_forever</mat-icon></mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+
+        <mat-paginator [length]="totalUsers" [pageSizeOptions]="[6]" [pageSize]="6" (page)="onPageChange($event)">
+        </mat-paginator>
+    </mat-card>
+</div>
